@@ -15,3 +15,10 @@ The script will download random comic from xkcd.com and display the title and ca
 Next plan:
 - Add script to name the image with .jpg
 - Add script to save (append) comic info into a txt file
+
+
+2014/06/11 17:33
+- Complete script to add the image filename with .jpg, also add comic no.
+- Complete script to save (append) comic info into a txt file
+
+Enjoy!
