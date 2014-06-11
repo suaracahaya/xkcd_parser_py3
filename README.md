@@ -3,7 +3,7 @@ xkcd_parser_py3
 
 xkcd comic parser for Python 3.x
 
-This is a modified version from Ana Balica's script (https://gist.github.com/ana-balica/5454270) to work in Python 3.
+This is a modified version from Ana Balica's script (http://code-speculations.herokuapp.com/blog/a/xkcd_getter; https://gist.github.com/ana-balica/5454270) to work in Python 3.
 The script will download random comic from xkcd.com and display the title and caption on your screen.
 
 2014/06/11 16:20
