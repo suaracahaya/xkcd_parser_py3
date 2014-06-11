@@ -4,14 +4,6 @@ import urllib.request
 import re
 from lxml import etree
 import random
-#import os
-
-#creates a directory for images if not exist
-#if not os.path.exists('C:/xkcd'):
-#    os.makedirs('C:/xkcd')
- 
-#changes current directory, images will be saved here.
-#os.chdir('C:/xkcd')
 
 
 class Downloader():
@@ -30,17 +22,13 @@ class Downloader():
 
 		try:
 			browser = urllib.request.urlopen(self.url)
-			#with urllib.request.urlopen(self.url) as browser:
-				#print(self.url) -> OK
 			response = browser.getcode()
-				#print(response)
 		except:
 			print('Bad connection')
 			sys.exit()
 
 		if response == 200:
 			contents = browser.read()
-			#print('Contents has been read')
 		else:
 			print('Bad header response')
 			sys.exit()
@@ -165,6 +153,4 @@ if __name__ == '__main__':
 	print(xkcd_parser.title)
 	print(xkcd_parser.caption)
 	print("Done!")
-
-	
 
