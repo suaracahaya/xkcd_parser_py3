@@ -1,3 +1,8 @@
+# xkcd_parser_py3
+# suaracahaya
+# 2014/06/11 : v2
+
+
 import sys
 import urllib
 import urllib.request
