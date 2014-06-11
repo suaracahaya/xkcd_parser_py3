@@ -4,6 +4,7 @@ import urllib.request
 import re
 from lxml import etree
 import random
+import datetime
 
 
 class Downloader():
@@ -16,10 +17,10 @@ class Downloader():
 	def __init__(self, url):
 		self.url = url
 
-	def download(self, image_name='', is_image=False):
-		'browser = urllib.urlopen(self.url) --> this works for Python 2.x'
-		'for Python 3.x :'
+	def download(self, image_name='', is_image=False, comicno=''):
 
+		#browser = urllib.urlopen(self.url) --> this works for Python 2.x
+		#for Python 3.x :
 		try:
 			browser = urllib.request.urlopen(self.url)
 			response = browser.getcode()
@@ -34,13 +35,14 @@ class Downloader():
 			sys.exit()
 
 		if is_image:
-			self.save_image(contents, image_name)
+			self.save_image(contents, image_name, comicno)
 
 		return contents
 
 
-	def save_image(self, contents, image_name):
-			image_file = open(image_name, 'wb')
+	def save_image(self, contents, image_name, comicno):
+			filename = str(comicno)+" "+image_name+".jpg"
+			image_file = open(filename, 'wb')
 			image_file.write(contents)
 			image_file.close()
 			#print('Image has been saved!')
@@ -98,10 +100,10 @@ class xkcdParser():
 			url = self.url + str(comic_nr)
 			downloader = Downloader(url)
 			self.contents = downloader.download()
+			self.comicnumber = comic_nr
 			self.get_title()
 			self.get_caption()
 			self.get_comic()
-			self.comicnumber = comic_nr
 			self.save_comic_info()
 
 
@@ -129,12 +131,16 @@ class xkcdParser():
 			url = tree.xpath("string(//div[@id='comic']/img/@src)")
 
 			downloader = Downloader(url)
-			downloader.download(self.title, True)
+			downloader.download(self.title, True, self.comicnumber)
 			# the parameter True will tell Downloader that it is passing an image, 
 			# thus provoking function save_image().
 
-	# I made this function by myself!
+	# I made this function by myself
 	def save_comic_info(self):
+		s = str(datetime.datetime.now()) + '\n' + str(self.comicnumber) + ' ' + self.title + '\n' + self.caption + '\n\n'
+		with open("xkcd_download_history.txt","a+") as f:
+    			f.write(s)
+
 		print('Comic info has been saved!')
 		
 
@@ -149,8 +155,5 @@ if __name__ == '__main__':
 	# get random comic
 	xkcd_parser.get_random_comic()
 
-	print(xkcd_parser.comicnumber)
-	print(xkcd_parser.title)
-	print(xkcd_parser.caption)
-	print("Done!")
+	print("Downloaded comic no." + str(xkcd_parser.comicnumber))
 
